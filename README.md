@@ -2,7 +2,7 @@ Picoprobe Dual SUMP
 ===========================================================================
 
 This is a fork of picoprobe. I added a second CDC endpoint as a uart0<->usb bridge so that both uarts can be used from the host.
-Then I merged the [SUMP logic analyzer](https://github.com/perexg/picoprobe-sump) and [a cdc_sump.h stub file from](https://github.com/PoroCYon/picoprobe-sump)
+Then I merged the [SUMP logic analyzer](https://github.com/perexg/picoprobe-sump) and [a cdc_sump.h stub file](https://github.com/PoroCYon/picoprobe-sump)
 as in the original repo the file was completely missing. As PoroCYon reported, his cdc_sump.h file isn't good enough but ... it builds.
 A part from adapting the CDCs and moving gpio conf from cdc_sump.c to picoprobe_config.h, I didn't change anything both in picoprobe and sump logic.
 The project is in standby until someone will fix the sump stuff.
