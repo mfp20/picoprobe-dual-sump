@@ -31,8 +31,13 @@
 #include "tusb.h"
 
 #include "picoprobe_config.h"
+#if TURBO_200MHZ
+#include "pico/stdlib.h"
+#include "hardware/vreg.h"
+#endif
 #include "probe.h"
 #include "cdc_uart.h"
+#include "cdc_sump.h"
 #include "get_serial.h"
 #include "led.h"
 
@@ -41,9 +46,15 @@
 
 int main(void) {
 
+#if TURBO_200MHZ
+    vreg_set_voltage(VREG_VOLTAGE_1_15);
+    set_sys_clock_khz(200000, true);
+#endif
+
     board_init();
     usb_serial_init();
     cdc_uart_init();
+    cdc_sump_init();
     tusb_init();
     probe_init();
     led_init();
@@ -52,7 +63,8 @@ int main(void) {
 
     while (1) {
         tud_task(); // tinyusb device task
-        cdc_task();
+        cdc_uart_task();
+        cdc_sump_task();
         probe_task();
         led_task();
     }
